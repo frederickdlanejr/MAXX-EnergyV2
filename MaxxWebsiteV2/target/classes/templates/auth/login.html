@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - MAXX Energy</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <a href="/">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">MAXX Energy</span>
+            </a>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/about" class="nav-link">About</a></li>
+            <li><a href="/faq" class="nav-link">FAQ</a></li>
+            <li><a href="/contact" class="nav-link">Contact</a></li>
+            <li><a href="/register" class="nav-link">Register</a></li>
+        </ul>
+        <div class="nav-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</nav>
+
+<!-- Auth Page Container -->
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <div class="auth-icon">🔐</div>
+            <h1>Welcome Back</h1>
+            <p>Sign in to access your solar dashboard</p>
+        </div>
+
+        <!-- Messages -->
+        <div th:if="${error}" class="alert alert-error" th:text="${error}">
+            Invalid email or password. Please try again.
+        </div>
+        <div th:if="${message}" class="alert alert-success" th:text="${message}">
+            You have been logged out successfully.
+        </div>
+
+        <!-- Login Form -->
+        <form th:action="@{/authenticate}" method="post" class="auth-form">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" class="form-control" required
+                       placeholder="your.email@example.com">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" class="form-control" required
+                       placeholder="Enter your password">
+            </div>
+
+            <div class="form-group-checkbox">
+                <label class="checkbox-container">
+                    <input type="checkbox" name="remember-me">
+                    <span class="checkmark"></span>
+                    Remember me for 30 days
+                </label>
+            </div>
+
+            <button type="submit" class="cta-button full-width">
+                Sign In to Dashboard
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Don't have an account? <a href="/register" class="auth-link">Create one here</a></p>
+            <p><a href="/contact" class="auth-link">Forgot your password?</a></p>
+        </div>
+
+        <!-- Demo Credentials -->
+        <div class="demo-credentials">
+            <h4>Demo Account</h4>
+            <p><strong>Email:</strong> demo@maxxenergy.com</p>
+            <p><strong>Password:</strong> demo123</p>
+            <button type="button" class="demo-fill-btn" onclick="fillDemoCredentials()">
+                Use Demo Account
+            </button>
+        </div>
+    </div>
+
+    <!-- Features Sidebar -->
+    <div class="auth-features">
+        <h3>Your Solar Dashboard Includes:</h3>
+        <div class="feature-list">
+            <div class="feature-item">
+                <span class="feature-icon">📊</span>
+                <div>
+                    <h4>Personal Solar Assessment</h4>
+                    <p>Get customized savings projections based on your energy usage</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">💰</span>
+                <div>
+                    <h4>Financing Calculator</h4>
+                    <p>Explore payment options and incentive programs</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">📞</span>
+                <div>
+                    <h4>Direct Expert Contact</h4>
+                    <p>Schedule consultations with our certified solar professionals</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">📈</span>
+                <div>
+                    <h4>Installation Tracking</h4>
+                    <p>Monitor your project progress from quote to activation</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function fillDemoCredentials() {
+        document.getElementById('email').value = 'demo@maxxenergy.com';
+        document.getElementById('password').value = 'demo123';
+    }
+
+    // Auto-focus on email field
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('email').focus();
+    });
+</script>
+
+<script src="/js/main.js"></script>
+</body>
+</html>

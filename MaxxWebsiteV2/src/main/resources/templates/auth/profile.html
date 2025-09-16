@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard - MAXX Energy</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <a href="/">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">MAXX Energy</span>
+            </a>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/about" class="nav-link">About</a></li>
+            <li><a href="/faq" class="nav-link">FAQ</a></li>
+            <li><a href="/contact" class="nav-link">Contact</a></li>
+            <li class="nav-user-menu">
+                <div class="user-avatar" th:text="${user.initials}">JS</div>
+                <div class="user-dropdown">
+                    <a href="/profile" class="nav-link active">Dashboard</a>
+                    <a href="/profile/edit" class="nav-link">Edit Profile</a>
+                    <a href="/profile/change-password" class="nav-link">Change Password</a>
+                    <a href="/logout" class="nav-link">Logout</a>
+                </div>
+            </li>
+        </ul>
+        <div class="nav-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</nav>
+
+<!-- Dashboard Container -->
+<div class="dashboard-container">
+    <!-- Welcome Header -->
+    <div class="dashboard-header">
+        <div class="welcome-section">
+            <h1>Welcome back, <span th:text="${user.firstName}">John</span>! 👋</h1>
+            <p>Here's your personalized solar dashboard with recommendations and savings projections.</p>
+        </div>
+        <div class="quick-actions">
+            <a href="/contact" class="action-btn primary">Schedule Consultation</a>
+            <a href="/profile/edit" class="action-btn secondary">Update Profile</a>
+        </div>
+    </div>
+
+    <!-- Messages -->
+    <div th:if="${success}" class="alert alert-success" th:text="${success}">
+        Profile updated successfully!
+    </div>
+    <div th:if="${error}" class="alert alert-error" th:text="${error}">
+        Error message
+    </div>
+
+    <!-- Dashboard Grid -->
+    <div class="dashboard-grid">
+        <!-- Solar Assessment Card -->
+        <div class="dashboard-card featured">
+            <div class="card-header">
+                <h3>🌟 Your Solar Assessment</h3>
+                <span class="card-badge">Personalized</span>
+            </div>
+            <div class="card-content">
+                <div class="assessment-summary">
+                    <div class="savings-highlight">
+                        <span class="savings-amount" th:text="' + ${#numbers.formatDecimal(potentialSavings, 0, 0)}">$2,400</span>
+                        <span class="savings-label">Estimated Annual Savings</span>
+                    </div>
+                    <div class="assessment-text" th:text="${solarAssessment}">
+                        Based on your monthly energy bill of $200, you could save approximately $2,400 annually with solar panels.
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <a href="/contact" class="btn-primary">Get Detailed Quote</a>
+                    <a href="/profile/edit" class="btn-secondary">Update Info</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Summary Card -->
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h3>👤 Profile Summary</h3>
+                <a href="/profile/edit" class="edit-link">Edit</a>
+            </div>
+            <div class="card-content">
+                <div class="profile-info">
+                    <div class="info-item">
+                        <label>Name:</label>
+                        <span th:text="${user.fullName}">John Smith</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Email:</label>
+                        <span th:text="${user.email}">john@example.com</span>
+                    </div>
+                    <div class="info-item" th:if="${user.phone}">
+                        <label>Phone:</label>
+                        <span th:text="${user.phone}">555-123-4567</span>
+                    </div>
+                    <div class="info-item" th:if="${user.displayAddress}">
+                        <label>Address:</label>
+                        <span th:text="${user.displayAddress}">123 Solar St, Energy City</span>
+                    </div>
+                    <div class="info-item" th:if="${user.propertyType}">
+                        <label>Property Type:</label>
+                        <span th:text="${user.propertyType}">Residential</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Energy Information Card -->
+        <div class="dashboard-card" th:if="${user.monthlyEnergyBill != null or user.roofType != null}">
+            <div class="card-header">
+                <h3>⚡ Energy Profile</h3>
+            </div>
+            <div class="card-content">
+                <div class="energy-stats">
+                    <div class="stat-item" th:if="${user.monthlyEnergyBill}">
+                        <span class="stat-value" th:text="' + ${#numbers.formatDecimal(user.monthlyEnergyBill, 0, 0)}">$200</span>
+                        <span class="stat-label">Monthly Bill</span>
+                    </div>
+                    <div class="stat-item" th:if="${user.roofAge}">
+                        <span class="stat-value" th:text="${user.roofAge} + ' years'">10 years</span>
+                        <span class="stat-label">Roof Age</span>
+                    </div>
+                    <div class="stat-item" th:if="${user.roofType}">
+                        <span class="stat-value" th:text="${user.roofType}">Asphalt</span>
+                        <span class="stat-label">Roof Type</span>
+                    </div>
+                </div>
+                <div class="energy-goals" th:if="${user.energyGoals}">
+                    <label>Energy Goals:</label>
+                    <p th:text="${user.energyGoals}">Reduce electricity bills and go green</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Next Steps Card -->
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h3>🚀 Next Steps</h3>
+            </div>
+            <div class="card-content">
+                <div class="steps-list">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Complete Your Profile</h4>
+                            <p>Add property details for more accurate solar recommendations</p>
+                            <a href="/profile/edit" class="step-action">Update Now</a>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Schedule Site Assessment</h4>
+                            <p>Get a professional evaluation of your property's solar potential</p>
+                            <a href="/contact" class="step-action">Schedule Now</a>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Review Custom Proposal</h4>
+                            <p>Receive your personalized solar system design and financing options</p>
+                            <span class="step-action disabled">Coming Soon</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Account Settings Card -->
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h3>⚙️ Account Settings</h3>
+            </div>
+            <div class="card-content">
+                <div class="settings-menu">
+                    <a href="/profile/edit" class="setting-item">
+                        <span class="setting-icon">📝</span>
+                        <div class="setting-content">
+                            <h4>Edit Profile</h4>
+                            <p>Update your personal and property information</p>
+                        </div>
+                    </a>
+                    <a href="/profile/change-password" class="setting-item">
+                        <span class="setting-icon">🔒</span>
+                        <div class="setting-content">
+                            <h4>Change Password</h4>
+                            <p>Update your account security credentials</p>
+                        </div>
+                    </a>
+                    <a href="/contact" class="setting-item">
+                        <span class="setting-icon">📞</span>
+                        <div class="setting-content">
+                            <h4>Contact Support</h4>
+                            <p>Get help from our solar experts</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Account Details Card -->
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h3>📊 Account Details</h3>
+            </div>
+            <div class="card-content">
+                <div class="account-details">
+                    <div class="detail-item">
+                        <label>Member Since:</label>
+                        <span th:text="${#temporals.format(user.createdAt, 'MMMM dd, yyyy')}">January 15, 2025</span>
+                    </div>
+                    <div class="detail-item" th:if="${user.lastLogin}">
+                        <label>Last Login:</label>
+                        <span th:text="${#temporals.format(user.lastLogin, 'MMM dd, yyyy HH:mm')}">Jan 15, 2025 14:30</span>
+                    </div>
+                    <div class="detail-item">
+                        <label>Account Status:</label>
+                        <span class="status-badge active">Active</span>
+                    </div>
+                </div>
+                <div class="logout-section">
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit" class="btn-logout">Sign Out</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/main.js"></script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,28 +11,25 @@
 </head>
 <body>
 <!-- Navigation -->
-<nav class="navbar">
-  <div class="nav-container">
-    <div class="nav-logo">
-      <a href="/">
-        <span class="logo-icon">⚡</span>
-        <span class="logo-text">MAXX Energy</span>
-      </a>
-    </div>
-    <ul class="nav-menu">
-      <li><a href="/" class="nav-link">Home</a></li>
-      <li><a href="/about" class="nav-link">About</a></li>
-      <li><a href="/faq" class="nav-link">FAQ</a></li>
-      <li><a href="/contact" class="nav-link active">Contact</a></li>
-    </ul>
-    <div class="nav-toggle">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-  </div>
-</nav>
+<ul class="nav-menu">
+  <li><a href="/" th:class="${activePage == 'home' ? 'nav-link active' : 'nav-link'}">Home</a></li>
+  <li><a href="/about" th:class="${activePage == 'about' ? 'nav-link active' : 'nav-link'}">About</a></li>
+  <li><a href="/faq" th:class="${activePage == 'faq' ? 'nav-link active' : 'nav-link'}">FAQ</a></li>
+  <li><a href="/contact" th:class="${activePage == 'contact' ? 'nav-link active' : 'nav-link'}">Contact</a></li>
 
+  <!-- Authentication Links -->
+  <li sec:authorize="!isAuthenticated()"><a href="/login" class="nav-link">Login</a></li>
+  <li sec:authorize="!isAuthenticated()"><a href="/register" class="nav-link">Register</a></li>
+  <li sec:authorize="isAuthenticated()">
+    <div class="nav-user-menu">
+      <div class="user-avatar" th:text="${#authentication.principal.initials}">JS</div>
+      <div class="user-dropdown">
+        <a href="/profile" class="nav-link">Dashboard</a>
+        <a href="/logout" class="nav-link">Logout</a>
+      </div>
+    </div>
+  </li>
+</ul>
 <!-- Page Header -->
 <section class="page-header">
   <div class="container">
