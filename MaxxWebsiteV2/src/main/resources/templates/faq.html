@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frequently Asked Questions - MAXX Energy</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <a href="/">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">MAXX Energy</span>
+            </a>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/about" class="nav-link">About</a></li>
+            <li><a href="/faq" class="nav-link active">FAQ</a></li>
+            <li><a href="/contact" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="nav-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</nav>
+
+<!-- Page Header -->
+<section class="page-header">
+    <div class="container">
+        <h1 class="page-title">Frequently Asked Questions</h1>
+        <p class="page-subtitle">Get answers to the most common questions about solar energy, our installation process, and MAXX Energy services.</p>
+    </div>
+</section>
+
+<!-- FAQ Content -->
+<section class="page-content">
+    <div class="container">
+        <div class="faq-list">
+            <div class="faq-item" th:each="faq : ${faqs}">
+                <div class="faq-question" th:text="${faq.question}">
+                    How much can I save with MAXX Energy solar panels?
+                </div>
+                <div class="faq-answer">
+                    <p th:text="${faq.answer}">Most homeowners save 60-90% on their electricity bills. With our premium efficiency panels and smart monitoring system, you could save $1,200-$2,400 annually depending on your current usage and local rates.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional FAQ Categories -->
+        <div class="faq-categories">
+            <h2 class="section-title">Still Have Questions?</h2>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">💰</div>
+                    <h3>Financing & Incentives</h3>
+                    <p>Learn about federal tax credits, local rebates, financing options, and how solar can pay for itself.</p>
+                    <a href="/contact" class="category-link">Ask About Financing →</a>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🔧</div>
+                    <h3>Installation Process</h3>
+                    <p>Understand our installation timeline, what to expect, and how we ensure minimal disruption to your routine.</p>
+                    <a href="/contact" class="category-link">Schedule Consultation →</a>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">📊</div>
+                    <h3>System Performance</h3>
+                    <p>Questions about energy production, monitoring, maintenance, and maximizing your solar investment.</p>
+                    <a href="/contact" class="category-link">Get Technical Support →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact CTA -->
+        <div class="cta-section">
+            <h2>Didn't Find Your Answer?</h2>
+            <p>Our solar experts are here to help. Get personalized answers and a free assessment of your property's solar potential.</p>
+            <a href="/contact" class="cta-button">Speak with a Solar Expert</a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-section">
+            <div class="footer-logo">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">MAXX Energy</span>
+            </div>
+            <p>Leading the solar revolution with premium installations and unmatched service since 2012.</p>
+        </div>
+        <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/faq">FAQ</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>Services</h4>
+            <ul>
+                <li>Residential Solar</li>
+                <li>Commercial Solar</li>
+                <li>Battery Storage</li>
+                <li>System Maintenance</li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>Contact Info</h4>
+            <p>📞 (555) 123-MAXX</p>
+            <p>✉️ freddyrules@maxxenergy.com</p>
+            <p>📍 123 Solar Boulevard<br>Energy City, EC 12345</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2025 MAXX Energy. All rights reserved. | Licensed & Insured | NABCEP Certified</p>
+    </div>
+</footer>
+
+<script src="/js/main.js"></script>
+</body>
+</html>

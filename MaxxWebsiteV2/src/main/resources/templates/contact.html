@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - MAXX Energy</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="nav-logo">
+      <a href="/">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">MAXX Energy</span>
+      </a>
+    </div>
+    <ul class="nav-menu">
+      <li><a href="/" class="nav-link">Home</a></li>
+      <li><a href="/about" class="nav-link">About</a></li>
+      <li><a href="/faq" class="nav-link">FAQ</a></li>
+      <li><a href="/contact" class="nav-link active">Contact</a></li>
+    </ul>
+    <div class="nav-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Page Header -->
+<section class="page-header">
+  <div class="container">
+    <h1 class="page-title">Contact MAXX Energy</h1>
+    <p class="page-subtitle">Ready to harness the power of the sun? Get your free solar assessment and personalized quote today.</p>
+  </div>
+</section>
+
+<!-- Contact Content -->
+<section class="page-content contact-section">
+  <div class="container">
+    <div class="contact-container">
+      <!-- Success/Error Messages -->
+      <div th:if="${success != null}" th:class="${success ? 'alert alert-success' : 'alert alert-error'}">
+        <p th:text="${message}">Thank you for your inquiry! We'll contact you within 24 hours.</p>
+      </div>
+
+      <!-- Contact Form -->
+      <form th:action="@{/contact}" th:object="${contactForm}" method="post" class="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Full Name *</label>
+            <input type="text" th:field="*{name}" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" th:field="*{email}" class="form-control" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" th:field="*{phone}" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="energyBill">Monthly Electric Bill</label>
+            <select th:field="*{energyBill}" class="form-control">
+              <option value="">Select Range</option>
+              <option value="under-100">Under $100</option>
+              <option value="100-200">$100 - $200</option>
+              <option value="200-300">$200 - $300</option>
+              <option value="300-400">$300 - $400</option>
+              <option value="over-400">Over $400</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="address">Property Address</label>
+          <input type="text" th:field="*{address}" class="form-control" placeholder="Street address, city, state, zip">
+        </div>
+
+        <div class="form-group">
+          <label for="message">Tell Us About Your Energy Goals</label>
+          <textarea th:field="*{message}" class="form-control" rows="4"
+                    placeholder="What interests you most about solar? Any specific questions or requirements?"></textarea>
+        </div>
+
+        <button type="submit" class="cta-button">Get My Free Solar Assessment</button>
+      </form>
+    </div>
+
+    <!-- Contact Information -->
+    <div class="contact-info-section">
+      <div class="contact-methods">
+        <div class="contact-method">
+          <div class="method-icon">📞</div>
+          <div class="method-details">
+            <h3>Call Us</h3>
+            <p><strong>(555) 123-MAXX</strong></p>
+            <p>Monday-Friday: 8AM-6PM<br>Saturday: 9AM-4PM</p>
+          </div>
+        </div>
+
+        <div class="contact-method">
+          <div class="method-icon">✉️</div>
+          <div class="method-details">
+            <h3>Email Us</h3>
+            <p><strong>hello@maxxenergy.com</strong></p>
+            <p>We respond within 4 hours<br>during business days</p>
+          </div>
+        </div>
+
+        <div class="contact-method">
+          <div class="method-icon">📍</div>
+          <div class="method-details">
+            <h3>Visit Our Showroom</h3>
+            <p><strong>123 Solar Boulevard</strong><br>Energy City, EC 12345</p>
+            <p>See live solar displays<br>and battery demonstrations</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service Areas -->
+      <div class="service-areas">
+        <h2 class="section-title">Service Areas</h2>
+        <div class="areas-grid">
+          <div class="area-item">
+            <h4>Residential</h4>
+            <ul>
+              <li>Energy City & Suburbs</li>
+              <li>Green Valley Region</li>
+              <li>Solar Heights</li>
+              <li>Renewable District</li>
+            </ul>
+          </div>
+          <div class="area-item">
+            <h4>Commercial</h4>
+            <ul>
+              <li>Industrial Parks</li>
+              <li>Office Complexes</li>
+              <li>Retail Centers</li>
+              <li>Agricultural Facilities</li>
+            </ul>
+          </div>
+        </div>
+        <p class="areas-note">Don't see your area? <a href="tel:555-123-6299">Call us</a> - we may still be able to help!</p>
+      </div>
+
+      <!-- What to Expect -->
+      <div class="expectations-section">
+        <h2 class="section-title">What Happens Next?</h2>
+        <div class="process-steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h4>Initial Consultation</h4>
+              <p>We'll call you within 24 hours to discuss your energy goals and schedule a site visit.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h4>Property Assessment</h4>
+              <p>Our certified team evaluates your roof, electrical system, and energy usage patterns.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h4>Custom Proposal</h4>
+              <p>Receive a detailed proposal with system design, savings projections, and financing options.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <h4>Professional Installation</h4>
+              <p>Our master electricians complete installation in 1-2 days with minimal disruption.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-section">
+      <div class="footer-logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">MAXX Energy</span>
+      </div>
+      <p>Leading the solar revolution with premium installations and unmatched service since 2012.</p>
+    </div>
+    <div class="footer-section">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About Us</a></li>
+        <li><a href="/faq">FAQ</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h4>Services</h4>
+      <ul>
+        <li>Residential Solar</li>
+        <li>Commercial Solar</li>
+        <li>Battery Storage</li>
+        <li>System Maintenance</li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h4>Contact Info</h4>
+      <p>📞 (555) 123-MAXX</p>
+      <p>✉️ freddyrules@maxxenergy.com</p>
+      <p>📍 123 Solar Boulevard<br>Energy City, EC 12345</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 MAXX Energy. All rights reserved. | Licensed & Insured | NABCEP Certified</p>
+  </div>
+</footer>
+
+<script src="/js/main.js"></script>
+</body>
+</html>
