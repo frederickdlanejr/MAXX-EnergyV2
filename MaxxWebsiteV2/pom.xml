@@ -47,6 +47,12 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
+        <!-- Spring Security Crypto for password hashing -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-crypto</artifactId>
+        </dependency>
+
         <!-- Spring Boot DevTools for Development -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
