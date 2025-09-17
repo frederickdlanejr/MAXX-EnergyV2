@@ -20,17 +20,21 @@
             </a>
         </div>
         <ul class="nav-menu">
-            <li><a href="/" class="nav-link">Home</a></li>
-            <li><a href="/about" class="nav-link">About</a></li>
-            <li><a href="/faq" class="nav-link">FAQ</a></li>
-            <li><a href="/contact" class="nav-link">Contact</a></li>
-            <li class="nav-user-menu">
-                <div class="user-avatar" th:text="${user.initials}">JS</div>
-                <div class="user-dropdown">
-                    <a href="/profile" class="nav-link active">Dashboard</a>
-                    <a href="/profile/edit" class="nav-link">Edit Profile</a>
-                    <a href="/profile/change-password" class="nav-link">Change Password</a>
-                    <a href="/logout" class="nav-link">Logout</a>
+            <li><a href="/" th:class="${activePage == 'home' ? 'nav-link active' : 'nav-link'}">Home</a></li>
+            <li><a href="/about" th:class="${activePage == 'about' ? 'nav-link active' : 'nav-link'}">About</a></li>
+            <li><a href="/faq" th:class="${activePage == 'faq' ? 'nav-link active' : 'nav-link'}">FAQ</a></li>
+            <li><a href="/contact" th:class="${activePage == 'contact' ? 'nav-link active' : 'nav-link'}">Contact</a></li>
+
+            <!-- Authentication Links -->
+            <li sec:authorize="!isAuthenticated()"><a href="/login" class="nav-link">Login</a></li>
+            <li sec:authorize="!isAuthenticated()"><a href="/register" class="nav-link">Register</a></li>
+            <li sec:authorize="isAuthenticated()">
+                <div class="nav-user-menu">
+                    <div class="user-avatar" th:text="${user.initials}">JS</div>
+                    <div class="user-dropdown">
+                        <a href="/profile" class="nav-link active">Dashboard</a>
+                        <a href="/logout" class="nav-link">Logout</a>
+                    </div>
                 </div>
             </li>
         </ul>
@@ -47,7 +51,7 @@
     <!-- Welcome Header -->
     <div class="dashboard-header">
         <div class="welcome-section">
-            <h1>Welcome back, <span th:text="${user.firstName}">John</span>! 👋</h1>
+            <h1>Welcome back, <span th:text="${user.firstName}">John</span>!</h1>
             <p>Here's your personalized solar dashboard with recommendations and savings projections.</p>
         </div>
         <div class="quick-actions">
@@ -75,7 +79,7 @@
             <div class="card-content">
                 <div class="assessment-summary">
                     <div class="savings-highlight">
-                        <span class="savings-amount" th:text="' + ${#numbers.formatDecimal(potentialSavings, 0, 0)}">$2,400</span>
+                        <span class="savings-amount">$<span th:text="${#numbers.formatDecimal(potentialSavings, 0, 0)}">2400</span></span>
                         <span class="savings-label">Estimated Annual Savings</span>
                     </div>
                     <div class="assessment-text" th:text="${solarAssessment}">
@@ -129,7 +133,7 @@
             <div class="card-content">
                 <div class="energy-stats">
                     <div class="stat-item" th:if="${user.monthlyEnergyBill}">
-                        <span class="stat-value" th:text="' + ${#numbers.formatDecimal(user.monthlyEnergyBill, 0, 0)}">$200</span>
+                        <span class="stat-value">$<span th:text="${#numbers.formatDecimal(user.monthlyEnergyBill, 0, 0)}">200</span></span>
                         <span class="stat-label">Monthly Bill</span>
                     </div>
                     <div class="stat-item" th:if="${user.roofAge}">

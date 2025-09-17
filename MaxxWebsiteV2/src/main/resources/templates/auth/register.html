@@ -1,10 +1,225 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title> </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - MAXX Energy</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
+<!-- Navigation -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <a href="/">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">MAXX Energy</span>
+            </a>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/about" class="nav-link">About</a></li>
+            <li><a href="/faq" class="nav-link">FAQ</a></li>
+            <li><a href="/contact" class="nav-link">Contact</a></li>
+            <li><a href="/login" class="nav-link">Login</a></li>
+        </ul>
+        <div class="nav-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</nav>
 
+<!-- Auth Page Container -->
+<div class="auth-container">
+    <div class="auth-card large">
+        <div class="auth-header">
+            <div class="auth-icon">🌟</div>
+            <h1>Start Your Solar Journey</h1>
+            <p>Create your account to access personalized solar assessments and quotes</p>
+        </div>
+
+        <!-- Messages -->
+        <div th:if="${error}" class="alert alert-error" th:text="${error}">
+            Registration error message
+        </div>
+
+        <!-- Registration Form -->
+        <form th:action="@{/register}" th:object="${user}" method="post" class="auth-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">First Name *</label>
+                    <input type="text" th:field="*{firstName}" class="form-control" required
+                           placeholder="John">
+                    <div th:if="${#fields.hasErrors('firstName')}" class="field-error"
+                         th:errors="*{firstName}">First name error</div>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name *</label>
+                    <input type="text" th:field="*{lastName}" class="form-control" required
+                           placeholder="Smith">
+                    <div th:if="${#fields.hasErrors('lastName')}" class="field-error"
+                         th:errors="*{lastName}">Last name error</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" th:field="*{email}" class="form-control" required
+                       placeholder="john.smith@example.com">
+                <div th:if="${#fields.hasErrors('email')}" class="field-error"
+                     th:errors="*{email}">Email error</div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="password">Password *</label>
+                    <input type="password" th:field="*{password}" class="form-control" required
+                           placeholder="Minimum 6 characters">
+                    <div th:if="${#fields.hasErrors('password')}" class="field-error"
+                         th:errors="*{password}">Password error</div>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" th:field="*{phone}" class="form-control"
+                           placeholder="(555) 123-4567">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Property Address (Optional)</label>
+                <input type="text" th:field="*{address}" class="form-control"
+                       placeholder="123 Solar Street, Energy City, EC 12345">
+            </div>
+
+            <div class="form-section-header">
+                <h3>Property Information</h3>
+                <p>Help us provide better solar recommendations</p>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="propertyType">Property Type</label>
+                    <select th:field="*{propertyType}" class="form-control">
+                        <option value="">Select Type</option>
+                        <option value="Residential">Residential</option>
+                        <option value="Commercial">Commercial</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="monthlyEnergyBill">Monthly Electric Bill</label>
+                    <input type="number" th:field="*{monthlyEnergyBill}" class="form-control"
+                           placeholder="200" step="0.01" min="0">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="roofType">Roof Type</label>
+                    <select th:field="*{roofType}" class="form-control">
+                        <option value="">Select Roof Type</option>
+                        <option value="Asphalt Shingle">Asphalt Shingle</option>
+                        <option value="Metal">Metal</option>
+                        <option value="Tile">Tile</option>
+                        <option value="Flat">Flat</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="roofAge">Roof Age (Years)</label>
+                    <input type="number" th:field="*{roofAge}" class="form-control"
+                           placeholder="10" min="0" max="100">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="energyGoals">Energy Goals</label>
+                <textarea th:field="*{energyGoals}" class="form-control" rows="3"
+                          placeholder="Tell us about your energy goals... (reduce bills, go green, backup power, etc.)"></textarea>
+            </div>
+
+            <div class="form-group-checkbox">
+                <label class="checkbox-container">
+                    <input type="checkbox" required>
+                    <span class="checkmark"></span>
+                    I agree to the <a href="/terms" class="auth-link">Terms of Service</a>
+                    and <a href="/privacy" class="auth-link">Privacy Policy</a>
+                </label>
+            </div>
+
+            <div class="form-group-checkbox">
+                <label class="checkbox-container">
+                    <input type="checkbox" name="newsletter">
+                    <span class="checkmark"></span>
+                    Send me solar tips and updates via email
+                </label>
+            </div>
+
+            <button type="submit" class="cta-button full-width">
+                Create My Solar Account
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Already have an account? <a href="/login" class="auth-link">Sign in here</a></p>
+        </div>
+    </div>
+
+    <!-- Benefits Sidebar -->
+    <div class="auth-features">
+        <h3>Why Create an Account?</h3>
+        <div class="feature-list">
+            <div class="feature-item">
+                <span class="feature-icon">🎯</span>
+                <div>
+                    <h4>Personalized Recommendations</h4>
+                    <p>Get custom solar system designs based on your specific property and energy needs</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">💵</span>
+                <div>
+                    <h4>Instant Savings Calculator</h4>
+                    <p>See real-time projections of your potential energy savings and payback period</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">🏆</span>
+                <div>
+                    <h4>Priority Support</h4>
+                    <p>Fast-track consultation scheduling and direct access to our solar experts</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">📱</span>
+                <div>
+                    <h4>Project Dashboard</h4>
+                    <p>Track your solar journey from initial quote through installation and beyond</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="trust-indicators">
+            <div class="trust-item">
+                <span class="trust-number">2,847</span>
+                <span class="trust-label">Happy Customers</span>
+            </div>
+            <div class="trust-item">
+                <span class="trust-number">98.7%</span>
+                <span class="trust-label">Satisfaction Rate</span>
+            </div>
+            <div class="trust-item">
+                <span class="trust-number">13</span>
+                <span class="trust-label">Years Experience</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/main.js"></script>
 </body>
 </html>

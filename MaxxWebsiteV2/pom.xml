@@ -60,6 +60,13 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- MySQL Database (for production) -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
         <!-- Spring Boot Validation -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
