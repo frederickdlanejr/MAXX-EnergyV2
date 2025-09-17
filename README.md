@@ -7,10 +7,8 @@ This edition was created by **consolidating and refining the previous version**,
 
 ## 📂 Project Structure  
 
-- **about-page/** – Static website files for the company “About” section and supporting pages  
-- **solardata/** – Java-based Spring Boot application for solar data handling, integrations, and services  
-
-This minimal and organized layout was intentionally designed to keep everything in one place while reducing clutter.  
+This minimal and organized layout was intentionally designed to keep everything in one place while reducing clutter. 
+My focus was on readability and cleanliness to optimzie future changes and easier adaptability.  
 
 ---
 
